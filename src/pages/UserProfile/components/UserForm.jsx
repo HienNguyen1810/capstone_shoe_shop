@@ -1,6 +1,4 @@
-import React from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Col, Form, Input, Radio, Row } from 'antd';
 import { apiHandler } from '../../../utils/api-handler';
@@ -52,7 +50,7 @@ const UserForm = () => {
 								rules={[
 									{
 										type: 'email',
-										message: 'The input is not valid E-mail!',
+										message: 'The input is invalid E-mail!',
 									},
 									{
 										required: true,

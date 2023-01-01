@@ -1,10 +1,7 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { MdOutlineDeleteOutline } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
-import { Collapse, Table } from 'antd';
-import { Tooltip } from 'antd';
-import { Empty } from 'antd';
+import { Collapse, Empty, Table, Tooltip } from 'antd';
 import moment from 'moment';
 import { apiHandler } from '../../../utils/api-handler';
 import userService from '../../../apis/userApi';
@@ -66,10 +63,13 @@ const HistoryList = () => {
 	return (
 		<Collapse defaultActiveKey={['1']} onChange={onChange}>
 			{orderHistorySelector?.map((orderItem, idx) => {
-				const orderDetailMappingKey = orderItem?.orderDetail?.map((item) => ({
-					...item,
-					key: item.idx,
-				}));
+				const orderDetailMappingKey = orderItem?.orderDetail?.map(
+					(item, id) => ({
+						...item,
+						key: id + 1,
+						id: id + 1,
+					})
+				);
 				return (
 					<Panel
 						header={

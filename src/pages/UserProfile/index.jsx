@@ -2,15 +2,13 @@ import React, { useEffect } from 'react';
 import { AiOutlineHistory } from 'react-icons/ai';
 import { MdSecurity } from 'react-icons/md';
 import { RiHeart3Line } from 'react-icons/ri';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Tabs } from 'antd';
-import _ from 'lodash';
 import ChangePassTab from './components/ChangePassTab';
 import HistoryList from './components/HistoryList';
 import ProductFavourite from './components/ProductFavourite';
 import UserForm from './components/UserForm';
-import EventBus from '../../utils/EventBus';
-import { getUserProfile, userProfile } from '../../redux/features/userSlice';
+import { getUserProfile } from '../../redux/features/userSlice';
 import './index.less';
 
 const UserProfile = () => {

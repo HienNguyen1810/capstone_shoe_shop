@@ -3,7 +3,7 @@ import {
 	createSelector,
 	createSlice,
 } from '@reduxjs/toolkit';
-import _ from 'lodash';
+import { orderBy } from 'lodash';
 import productService from '../../apis/productApi';
 
 export const fetchProducts = createAsyncThunk(
@@ -74,7 +74,7 @@ export const productListFilter = createSelector(
 	productList,
 	priceOrder,
 	(productList, priceOrder) =>
-		_.orderBy([...productList], ['price'], [priceOrder])
+		orderBy([...productList], ['price'], [priceOrder])
 );
 
 export default productSlice.reducer;

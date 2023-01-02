@@ -1,15 +1,14 @@
-import { LoadingOutlined } from '@ant-design/icons';
-import { Form, Input, Spin, notification } from 'antd';
-import axios from 'axios';
-import { omit } from 'lodash';
 import React, { useState } from 'react';
 import FacebookLogin from 'react-facebook-login';
-import { TiSocialFacebookCircular } from 'react-icons/ti';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import userService from '../apis/userApi';
+import { Form, Input, notification, Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
+import axios from 'axios';
+import { omit } from 'lodash';
 import useAuth from '../hooks/use-auth';
-import '../styles/login.less';
 import { apiHandler } from '../utils/api-handler';
+import userService from '../apis/userApi';
+import '../styles/login.less';
 
 const Login = () => {
 	const { setAuth } = useAuth();
@@ -128,6 +127,10 @@ const Login = () => {
 };
 
 const LoginFacebook = () => {
+	const { setAuth } = useAuth();
+	const navigate = useNavigate();
+	const location = useLocation();
+	const from = location.state?.from?.pathname || '/';
 	const responseFacebook = (response) => {
 		axios({
 			url: 'https://shop.cyberlearn.vn/api/Users/facebooklogin',
@@ -148,6 +151,8 @@ const LoginFacebook = () => {
 				JSON.stringify(res.data.content.accessToken)
 			);
 			localStorage.setItem('email', JSON.stringify(res.data.content.email));
+			setAuth({ email: res.data.content.email });
+			navigate(from, { replace: true, state: '' });
 		});
 	};
 
@@ -157,15 +162,6 @@ const LoginFacebook = () => {
 				appId="532237022311215"
 				autoLoad={true}
 				fields="name,email,picture"
-				onClick={(props) => (
-					<button
-						disabled
-						className="flex gap-3 items-center bg-[#1877F2] text-white p-3 w-full rounded-2xl active:scale-90 transition-all ease-in duration-200"
-					>
-						<TiSocialFacebookCircular size={40} color="white" />
-						<span className="text-xl font-normal">Continue with Facebook</span>
-					</button>
-				)}
 				callback={responseFacebook}
 			/>
 		</div>

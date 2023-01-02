@@ -10,11 +10,6 @@ export const getUserProfile = createAsyncThunk(
 			const response = await userService.getProfile();
 			return response.data.content;
 		} catch (error) {
-			console.log(error);
-			console.log(error.response);
-			if (error.message === 'Network Error') {
-				EventBus.dispatch('logout');
-			}
 			return rejectWithValue(error);
 		}
 	}
@@ -26,9 +21,6 @@ export const getProductFav = createAsyncThunk(
 			const response = await userService.getProductFav();
 			return response.data.content.productsFavorite;
 		} catch (error) {
-			if (error.message === 'Network Error') {
-				EventBus.dispatch('logout');
-			}
 			return rejectWithValue(err.response.data);
 		}
 	}

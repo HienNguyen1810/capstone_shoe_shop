@@ -34,7 +34,7 @@ const Register = () => {
 			<h1 className="text-left border-b border-b-[#DEDDDC] text-[40px] py-6 pt-16">
 				Register
 			</h1>
-			<div>
+			<div className="mt-6">
 				<Form
 					form={form}
 					className="mt-6"
@@ -137,7 +137,15 @@ const Register = () => {
 							</Form.Item>
 						</Col>
 						<Col span={12} className="mt-10">
-							<Form.Item name="gender">
+							<Form.Item
+								name="gender"
+								rules={[
+									{
+										required: true,
+										message: 'Please choose your gender!',
+									},
+								]}
+							>
 								<Radio.Group>
 									<Radio value={true}>Male</Radio>
 									<Radio value={false}>FeMale</Radio>

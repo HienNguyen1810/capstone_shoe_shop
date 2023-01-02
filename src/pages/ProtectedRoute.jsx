@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { notification } from 'antd';
 import useAuth from '../hooks/use-auth';
 import EventBus from '../utils/EventBus';
 import { removeAll } from '../redux/features/cartSlice';
@@ -22,6 +23,9 @@ const ProtectedRoute = () => {
 	};
 	useEffect(() => {
 		EventBus.on('logout', () => {
+			notification.warning({
+				message: 'Your session is expired, please login and try again!',
+			});
 			logOut();
 		});
 		return () => {

@@ -3,6 +3,7 @@ import { BiUser } from 'react-icons/bi';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Popover } from 'antd';
+import { Tooltip } from 'antd';
 import useAuth from '../../hooks/use-auth';
 import EventBus from '../../utils/EventBus';
 import { removeAll } from '../../redux/features/cartSlice';
@@ -21,7 +22,11 @@ const ActionButton = () => {
 
 	const isLogin = email && token;
 
-	const text = <span>{email && email}</span>;
+	const text = (
+		<p className="truncate w-[200px]">
+			<Tooltip title={email && email}>{email && email}</Tooltip>
+		</p>
+	);
 
 	const logOut = () => {
 		localStorage.removeItem('token');
@@ -63,6 +68,7 @@ const ActionButton = () => {
 					title={text}
 					content={content}
 					trigger="click"
+					className="truncate"
 				>
 					<div className="text-white cursor-pointer">
 						<BiUser size={24} />

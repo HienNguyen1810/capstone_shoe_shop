@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import FacebookLogin from 'react-facebook-login';
 import { TiSocialFacebookCircular } from 'react-icons/ti';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Form, Input, Spin } from 'antd';
+import { Form, Input, notification, Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
+import axios from 'axios';
 import { omit } from 'lodash';
 import useAuth from '../hooks/use-auth';
 import { apiHandler } from '../utils/api-handler';
@@ -118,6 +120,44 @@ const Login = () => {
 							{isLoading && <Spin indicator={antIcon} />} Login
 						</button>
 					</div>
+				</Form>
+				<LoginFacebook />
+			</div>
+		</section>
+	);
+};
+
+const LoginFacebook = () => {
+	const responseFacebook = (response) => {
+		axios({
+			url: 'https://shop.cyberlearn.vn/api/Users/facebooklogin',
+			method: 'post',
+			data: {
+				facebookToken: response.accessToken,
+			},
+		}).then((res) => {
+			//Lưu vào localstorage
+			if (!res?.data?.content?.accessToken || !res?.data?.content?.email) {
+				notification.warning({
+					message: <p>failed to login facebook, please try again!</p>,
+				});
+				return;
+			}
+			localStorage.setItem(
+				'token',
+				JSON.stringify(res.data.content.accessToken)
+			);
+			localStorage.setItem('email', JSON.stringify(res.data.content.email));
+		});
+	};
+
+	return (
+		<div>
+			<FacebookLogin
+				appId="1321515251962852"
+				autoLoad={true}
+				fields="name,email,picture"
+				onClick={(props) => (
 					<button
 						disabled
 						className="flex gap-3 items-center bg-[#1877F2] text-white p-3 w-full rounded-2xl active:scale-90 transition-all ease-in duration-200"
@@ -125,10 +165,10 @@ const Login = () => {
 						<TiSocialFacebookCircular size={40} color="white" />
 						<span className="text-xl font-normal">Continue with Facebook</span>
 					</button>
-				</Form>
-			</div>
-		</section>
+				)}
+				callback={responseFacebook}
+			/>
+		</div>
 	);
 };
-
 export default Login;

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import EventBus from '../utils/EventBus';
 
 const baseUrl = 'https://shop.cyberlearn.vn/api/';
 const getToken = () => JSON.parse(localStorage.getItem('token'));
@@ -28,7 +29,10 @@ axiosClient.interceptors.response.use(
 		return response;
 	},
 	function (error) {
-		console.log(error);
+		if (error.message === 'Network Error') {
+			EventBus.dispatch('logout');
+		}
+
 		return Promise.reject(error);
 	}
 );

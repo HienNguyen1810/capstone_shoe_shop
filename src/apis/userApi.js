@@ -1,11 +1,12 @@
+import axios from 'axios';
 import axiosClient from './axiosClient';
 
 const userService = {
 	signUp: (param) => {
-		return axiosClient.post('Users/signup', param);
+		return axios.post('https://shop.cyberlearn.vn/api/Users/signup', param);
 	},
 	signIn: (datas) => {
-		return axiosClient.post('Users/signin', datas);
+		return axios.post('https://shop.cyberlearn.vn/api/Users/signin', datas);
 	},
 	getProfile: () => {
 		return axiosClient.post(`Users/getProfile`);

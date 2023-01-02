@@ -154,7 +154,7 @@ const LoginFacebook = () => {
 	return (
 		<div>
 			<FacebookLogin
-				appId="470136851981063"
+				appId="532237022311215"
 				autoLoad={true}
 				fields="name,email,picture"
 				onClick={(props) => (

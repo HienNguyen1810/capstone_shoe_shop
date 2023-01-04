@@ -1,14 +1,14 @@
+import { LoadingOutlined } from '@ant-design/icons';
+import { Form, Input, Spin, notification } from 'antd';
+import axios from 'axios';
+import { omit } from 'lodash';
 import React, { useState } from 'react';
 import FacebookLogin from 'react-facebook-login';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Form, Input, notification, Spin } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
-import axios from 'axios';
-import { omit } from 'lodash';
-import useAuth from '../hooks/use-auth';
-import { apiHandler } from '../utils/api-handler';
 import userService from '../apis/userApi';
+import useAuth from '../hooks/use-auth';
 import '../styles/login.less';
+import { apiHandler } from '../utils/api-handler';
 
 const Login = () => {
 	const { setAuth } = useAuth();
@@ -160,7 +160,7 @@ const LoginFacebook = () => {
 		<div>
 			<FacebookLogin
 				appId="532237022311215"
-				autoLoad={true}
+				autoLoad={false}
 				fields="name,email,picture"
 				callback={responseFacebook}
 			/>

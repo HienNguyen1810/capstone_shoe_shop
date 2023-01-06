@@ -159,7 +159,7 @@ const LoginFacebook = () => {
 	return (
 		<div>
 			<FacebookLogin
-				appId="532237022311215"
+				appId="470136851981063"
 				autoLoad={false}
 				fields="name,email,picture"
 				callback={responseFacebook}
